@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KuroWizModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="M_CATEGORY">
+          <Key>
+            <PropertyRef Name="CATEGORY_CD" />
+          </Key>
+          <Property Name="CATEGORY_CD" Type="int" Nullable="false" />
+          <Property Name="CATEGORY_NM" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VISIBLE" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M_DIFFICULTY">
+          <Key>
+            <PropertyRef Name="DIFFICULTY_CD" />
+          </Key>
+          <Property Name="DIFFICULTY_CD" Type="int" Nullable="false" />
+          <Property Name="DIFFICULTY_NM" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_ANSWER">
+          <Key>
+            <PropertyRef Name="ANSWER_ID" />
+          </Key>
+          <Property Name="ANSWER_ID" Type="int" Nullable="false" />
+          <Property Name="QUIZ_ID" Type="int" Nullable="false" />
+          <Property Name="TOTAL_SEE" Type="int" Nullable="false" />
+          <Property Name="CORRECT_COUNT" Type="int" Nullable="false" />
+          <Property Name="FAIL_COUNT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_QUIZ">
+          <Key>
+            <PropertyRef Name="QUIZ_ID" />
+          </Key>
+          <Property Name="QUIZ_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CATEGORY_CD" Type="int" Nullable="false" />
+          <Property Name="DIFFICULTY_CD" Type="int" Nullable="false" />
+          <Property Name="SUMMARY" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="C1" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="C2" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="C3" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="C4" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ANS" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_T_ANSWER_T_QUIZ">
+          <End Role="T_QUIZ" Type="Self.T_QUIZ" Multiplicity="1" />
+          <End Role="T_ANSWER" Type="Self.T_ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_QUIZ">
+              <PropertyRef Name="QUIZ_ID" />
+            </Principal>
+            <Dependent Role="T_ANSWER">
+              <PropertyRef Name="QUIZ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_QUIZ_M_CATEGORY">
+          <End Role="M_CATEGORY" Type="Self.M_CATEGORY" Multiplicity="1" />
+          <End Role="T_QUIZ" Type="Self.T_QUIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="M_CATEGORY">
+              <PropertyRef Name="CATEGORY_CD" />
+            </Principal>
+            <Dependent Role="T_QUIZ">
+              <PropertyRef Name="CATEGORY_CD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_QUIZ_M_DIFFICULTY">
+          <End Role="M_DIFFICULTY" Type="Self.M_DIFFICULTY" Multiplicity="1" />
+          <End Role="T_QUIZ" Type="Self.T_QUIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="M_DIFFICULTY">
+              <PropertyRef Name="DIFFICULTY_CD" />
+            </Principal>
+            <Dependent Role="T_QUIZ">
+              <PropertyRef Name="DIFFICULTY_CD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KuroWizModelStoreContainer">
+          <EntitySet Name="M_CATEGORY" EntityType="Self.M_CATEGORY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_DIFFICULTY" EntityType="Self.M_DIFFICULTY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_ANSWER" EntityType="Self.T_ANSWER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_QUIZ" EntityType="Self.T_QUIZ" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_T_ANSWER_T_QUIZ" Association="Self.FK_T_ANSWER_T_QUIZ">
+            <End Role="T_QUIZ" EntitySet="T_QUIZ" />
+            <End Role="T_ANSWER" EntitySet="T_ANSWER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_QUIZ_M_CATEGORY" Association="Self.FK_T_QUIZ_M_CATEGORY">
+            <End Role="M_CATEGORY" EntitySet="M_CATEGORY" />
+            <End Role="T_QUIZ" EntitySet="T_QUIZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_QUIZ_M_DIFFICULTY" Association="Self.FK_T_QUIZ_M_DIFFICULTY">
+            <End Role="M_DIFFICULTY" EntitySet="M_DIFFICULTY" />
+            <End Role="T_QUIZ" EntitySet="T_QUIZ" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KuroWizModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="M_CATEGORY">
+          <Key>
+            <PropertyRef Name="CATEGORY_CD" />
+          </Key>
+          <Property Name="CATEGORY_CD" Type="Int32" Nullable="false" />
+          <Property Name="CATEGORY_NM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VISIBLE" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="T_QUIZ" Relationship="Self.FK_T_QUIZ_M_CATEGORY" FromRole="M_CATEGORY" ToRole="T_QUIZ" />
+        </EntityType>
+        <EntityType Name="M_DIFFICULTY">
+          <Key>
+            <PropertyRef Name="DIFFICULTY_CD" />
+          </Key>
+          <Property Name="DIFFICULTY_CD" Type="Int32" Nullable="false" />
+          <Property Name="DIFFICULTY_NM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_QUIZ" Relationship="Self.FK_T_QUIZ_M_DIFFICULTY" FromRole="M_DIFFICULTY" ToRole="T_QUIZ" />
+        </EntityType>
+        <EntityType Name="T_ANSWER">
+          <Key>
+            <PropertyRef Name="ANSWER_ID" />
+          </Key>
+          <Property Name="ANSWER_ID" Type="Int32" Nullable="false" />
+          <Property Name="QUIZ_ID" Type="Int32" Nullable="false" />
+          <Property Name="TOTAL_SEE" Type="Int32" Nullable="false" />
+          <Property Name="CORRECT_COUNT" Type="Int32" Nullable="false" />
+          <Property Name="FAIL_COUNT" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="T_QUIZ" Relationship="Self.FK_T_ANSWER_T_QUIZ" FromRole="T_ANSWER" ToRole="T_QUIZ" />
+        </EntityType>
+        <EntityType Name="T_QUIZ">
+          <Key>
+            <PropertyRef Name="QUIZ_ID" />
+          </Key>
+          <Property Name="QUIZ_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CATEGORY_CD" Type="Int32" Nullable="false" />
+          <Property Name="DIFFICULTY_CD" Type="Int32" Nullable="false" />
+          <Property Name="SUMMARY" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="C4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ANS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="M_CATEGORY" Relationship="Self.FK_T_QUIZ_M_CATEGORY" FromRole="T_QUIZ" ToRole="M_CATEGORY" />
+          <NavigationProperty Name="M_DIFFICULTY" Relationship="Self.FK_T_QUIZ_M_DIFFICULTY" FromRole="T_QUIZ" ToRole="M_DIFFICULTY" />
+          <NavigationProperty Name="T_ANSWER" Relationship="Self.FK_T_ANSWER_T_QUIZ" FromRole="T_QUIZ" ToRole="T_ANSWER" />
+        </EntityType>
+        <Association Name="FK_T_QUIZ_M_CATEGORY">
+          <End Role="M_CATEGORY" Type="Self.M_CATEGORY" Multiplicity="1" />
+          <End Role="T_QUIZ" Type="Self.T_QUIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="M_CATEGORY">
+              <PropertyRef Name="CATEGORY_CD" />
+            </Principal>
+            <Dependent Role="T_QUIZ">
+              <PropertyRef Name="CATEGORY_CD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_QUIZ_M_DIFFICULTY">
+          <End Role="M_DIFFICULTY" Type="Self.M_DIFFICULTY" Multiplicity="1" />
+          <End Role="T_QUIZ" Type="Self.T_QUIZ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="M_DIFFICULTY">
+              <PropertyRef Name="DIFFICULTY_CD" />
+            </Principal>
+            <Dependent Role="T_QUIZ">
+              <PropertyRef Name="DIFFICULTY_CD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_ANSWER_T_QUIZ">
+          <End Role="T_QUIZ" Type="Self.T_QUIZ" Multiplicity="1" />
+          <End Role="T_ANSWER" Type="Self.T_ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_QUIZ">
+              <PropertyRef Name="QUIZ_ID" />
+            </Principal>
+            <Dependent Role="T_ANSWER">
+              <PropertyRef Name="QUIZ_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="M_CATEGORY" EntityType="Self.M_CATEGORY" />
+          <EntitySet Name="M_DIFFICULTY" EntityType="Self.M_DIFFICULTY" />
+          <EntitySet Name="T_ANSWER" EntityType="Self.T_ANSWER" />
+          <EntitySet Name="T_QUIZ" EntityType="Self.T_QUIZ" />
+          <AssociationSet Name="FK_T_QUIZ_M_CATEGORY" Association="Self.FK_T_QUIZ_M_CATEGORY">
+            <End Role="M_CATEGORY" EntitySet="M_CATEGORY" />
+            <End Role="T_QUIZ" EntitySet="T_QUIZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_QUIZ_M_DIFFICULTY" Association="Self.FK_T_QUIZ_M_DIFFICULTY">
+            <End Role="M_DIFFICULTY" EntitySet="M_DIFFICULTY" />
+            <End Role="T_QUIZ" EntitySet="T_QUIZ" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_ANSWER_T_QUIZ" Association="Self.FK_T_ANSWER_T_QUIZ">
+            <End Role="T_QUIZ" EntitySet="T_QUIZ" />
+            <End Role="T_ANSWER" EntitySet="T_ANSWER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KuroWizModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="M_CATEGORY">
+            <EntityTypeMapping TypeName="KuroWizModel.M_CATEGORY">
+              <MappingFragment StoreEntitySet="M_CATEGORY">
+                <ScalarProperty Name="CATEGORY_CD" ColumnName="CATEGORY_CD" />
+                <ScalarProperty Name="CATEGORY_NM" ColumnName="CATEGORY_NM" />
+                <ScalarProperty Name="VISIBLE" ColumnName="VISIBLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_DIFFICULTY">
+            <EntityTypeMapping TypeName="KuroWizModel.M_DIFFICULTY">
+              <MappingFragment StoreEntitySet="M_DIFFICULTY">
+                <ScalarProperty Name="DIFFICULTY_CD" ColumnName="DIFFICULTY_CD" />
+                <ScalarProperty Name="DIFFICULTY_NM" ColumnName="DIFFICULTY_NM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ANSWER">
+            <EntityTypeMapping TypeName="KuroWizModel.T_ANSWER">
+              <MappingFragment StoreEntitySet="T_ANSWER">
+                <ScalarProperty Name="ANSWER_ID" ColumnName="ANSWER_ID" />
+                <ScalarProperty Name="QUIZ_ID" ColumnName="QUIZ_ID" />
+                <ScalarProperty Name="TOTAL_SEE" ColumnName="TOTAL_SEE" />
+                <ScalarProperty Name="CORRECT_COUNT" ColumnName="CORRECT_COUNT" />
+                <ScalarProperty Name="FAIL_COUNT" ColumnName="FAIL_COUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_QUIZ">
+            <EntityTypeMapping TypeName="KuroWizModel.T_QUIZ">
+              <MappingFragment StoreEntitySet="T_QUIZ">
+                <ScalarProperty Name="QUIZ_ID" ColumnName="QUIZ_ID" />
+                <ScalarProperty Name="CATEGORY_CD" ColumnName="CATEGORY_CD" />
+                <ScalarProperty Name="DIFFICULTY_CD" ColumnName="DIFFICULTY_CD" />
+                <ScalarProperty Name="SUMMARY" ColumnName="SUMMARY" />
+                <ScalarProperty Name="C1" ColumnName="C1" />
+                <ScalarProperty Name="C2" ColumnName="C2" />
+                <ScalarProperty Name="C3" ColumnName="C3" />
+                <ScalarProperty Name="C4" ColumnName="C4" />
+                <ScalarProperty Name="ANS" ColumnName="ANS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

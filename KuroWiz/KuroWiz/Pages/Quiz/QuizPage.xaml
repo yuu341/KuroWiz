@@ -1,0 +1,106 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KuroWiz.Pages.Quiz" x:Class="KuroWiz.Pages.Quiz.QuizPage" 
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="500"
+	Title="QuizPage">
+
+    <Page.DataContext>
+        <local:QuizViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180px"/>
+            <RowDefinition Height="30px"/>
+            <RowDefinition Height="19*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+    	<Grid>
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="30px"/>
+    			<RowDefinition Height="30px"/>
+    			<RowDefinition Height="60px"/>
+    			<RowDefinition Height="30px"/>
+    			<RowDefinition Height="30px"/>
+    			<RowDefinition Height="30px"/>
+    			<RowDefinition Height="*"/>
+    		</Grid.RowDefinitions>
+    		<Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    			<ColumnDefinition Width="30px"/>
+    		</Grid.ColumnDefinitions>
+    		<Label Grid.Column="0" Content="易"/>
+    		<Label Grid.Column="1" Content="普"/>
+    		<Label Grid.Column="2" Content="難"/>
+    		<Label Grid.Column="3" Content="理"/>
+    		<Label Grid.Column="4" Content="文"/>
+    		<Label Grid.Column="5" Content="ア"/>
+    		<Label Grid.Column="6" Content="雑"/>
+    		<Label Grid.Column="7" Content="芸"/>
+    		<Label Grid.Column="8" Content="ス"/>
+			
+    		<CheckBox Grid.Column="0" Grid.Row="1" IsChecked="{Binding Opt.Df1, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="1" Grid.Row="1" IsChecked="{Binding Opt.Df2, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="2" Grid.Row="1" IsChecked="{Binding Opt.Df3, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="3" Grid.Row="1" IsChecked="{Binding Opt.Ct1, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="4" Grid.Row="1" IsChecked="{Binding Opt.Ct2, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="5" Grid.Row="1" IsChecked="{Binding Opt.Ct3, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="6" Grid.Row="1" IsChecked="{Binding Opt.Ct4, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="7" Grid.Row="1" IsChecked="{Binding Opt.Ct5, Mode=TwoWay}"/>
+    		<CheckBox Grid.Column="8" Grid.Row="1" IsChecked="{Binding Opt.Ct6, Mode=TwoWay}"/>
+    		<TextBox Grid.ColumnSpan="6" Grid.Column="3" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Opt.Free,Mode=TwoWay}" AcceptsReturn="True"/>
+    		<Label Grid.ColumnSpan="3" Content="フリーワード:" Grid.Row="2" HorizontalAlignment="Right"/>
+    		<Label Grid.ColumnSpan="3" Content="誤答率:" HorizontalAlignment="Right" Grid.Row="3"/>
+    		<Label Content="%以上" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="3"/>
+    		<TextBox Grid.Column="3" Grid.Row="3" TextWrapping="Wrap" Text="{Binding FailParcent,Mode=TwoWay}" Grid.ColumnSpan="2"/>
+    		<TextBox Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="4" TextWrapping="Wrap" Text="{Binding SeeLower,Mode=TwoWay}"/>
+    		<Label Grid.ColumnSpan="3" Content="出題回数:"  Grid.Row="4" HorizontalContentAlignment="Right"/>
+    		<Label Content="回以上" Grid.Column="5" Grid.Row="4" Grid.ColumnSpan="2"/>
+			    		<TextBox Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="5" TextWrapping="Wrap" Text="{Binding SeeUpper,Mode=TwoWay}"/>
+    		<Label Grid.ColumnSpan="3" Content="出題回数:"  Grid.Row="5" HorizontalContentAlignment="Right"/>
+    		<Label Content="回以下" Grid.Column="5" Grid.Row="5" Grid.ColumnSpan="2"/>
+    	</Grid>
+    	<Grid Grid.Row="1">
+    		<Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="70px"/>
+    			<ColumnDefinition Width="70px"/>
+    			<ColumnDefinition Width="70px"/>
+    			<ColumnDefinition Width="*"/>
+    		</Grid.ColumnDefinitions>
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="30"/>
+    		</Grid.RowDefinitions>
+    		<Button Content="問題セット" Command="{Binding SearchCommand}" Grid.Row="0" Margin="2,0,0,0"/>
+			<Label Grid.Column="1" HorizontalAlignment="Right" Content="{Binding SearchedTotal}"/>
+    		<Button Content="開始" Command="{Binding StartCommand}" Grid.Row="0" Grid.Column="2" Margin="2,0,0,0"/>
+    	</Grid>
+    	<Grid Grid.Row="2" Grid.RowSpan="2">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="50px"/>
+    			<RowDefinition Height="50px"/>
+    			<RowDefinition Height="50px"/>
+    			<RowDefinition Height="50px"/>
+    		</Grid.RowDefinitions>
+    		<Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="1*"/>
+    			<ColumnDefinition Width="1*"/>
+    		</Grid.ColumnDefinitions>
+    		<TextBlock TextWrapping="Wrap" Text="{Binding Quiz.SUMMARY}" Grid.RowSpan="4"/>
+    		<Button Content="{Binding Quiz.C1}" Command="{Binding AnswerCommand}" CommandParameter="1" Background="{Binding CollectColor}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Height="50"/>
+    		<Button Content="{Binding Quiz.C2}" Command="{Binding AnswerCommand}" CommandParameter="2" Background="{Binding CollectColor}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Width="200" Height="50"/>
+    		<Button Content="{Binding Quiz.C3}" Command="{Binding AnswerCommand}" CommandParameter="3" Background="{Binding CollectColor}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Width="200" Height="50"/>
+    		<Button Content="{Binding Quiz.C4}" Command="{Binding AnswerCommand}" CommandParameter="4" Background="{Binding CollectColor}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Width="200" Height="50"/>
+    	</Grid>
+    </Grid>
+</Page>
